@@ -1,0 +1,645 @@
+---
+title: "posit::conf(2023): \n\n A posit::ively good time"
+subtitle: "An FPDC Brown Bag Presentation"
+date: 10/19/2023
+date-format: long
+title-slide-attributes:
+    data-background-color: "#893e5a"
+    data-background-opacity: "1"
+    max-width: 90%
+author: 
+  - name: "Kristin Yeager"
+    affiliation: Kent State University Libraries
+    affiliation-url: https://library.kent.edu
+    orcid: 0000-0002-4747-1745
+engine: knitr
+hightlight-style: github
+embed-resources: true
+self-contained-math: true
+format: 
+  revealjs:
+    df-print: kable
+    mermaid:
+      theme: neutral
+    theme:
+      - default
+      - custom.scss
+    mainfont: "Atkinson Hyperlegible"
+editor: visual
+---
+
+## I went to positconf! {.center .hideh2}
+
+::: {.r-hstack layout-valign="center"}
+![](Pics/L_positconf_chicago-skyline-2023-09-16.jpg){height="275px"}
+
+![](Pics/L_positconf_around-chicago_2023-09-17_wabash-ave-bridge-river.jpg){height="275px"}
+
+![](Pics/L_positconf_respect-space-sign-2023-09-17.jpg){height="275px"}
+
+![](Pics/L_positconf_around-chicago_2023-09-17_chicago-theater.jpg){height="275px"}
+:::
+
+::: {.fragment .absolute fragment-index="1" top="39%" left="0" style="background-color: rgba(255, 255, 255, 0.9); padding:10px; text-align: center;"}
+I'm here to report back from posit::conf(2023), a data science conference for R and Python users :)
+:::
+
+::: {.r-hstack layout-valign="center" layout-align="center"}
+![](Pics/L_positconf_around-chicago_2023-09-17_loews.jpg){height="275px"}
+
+![](Pics/L_positconf_around-chicago_2023-09-18_river-park.jpg){height="275px"}
+
+![](Pics/L_positconf_around-chicago_2023-09-17_near-millennium-park.jpg){height="275px"}
+
+![](Pics/L_positconf_around-chicago_2023-09-17_river-boats.jpg){height="275px"}
+:::
+
+```{css, echo=FALSE}
+section.hideh1 > h1{display: none;}
+section.hideh2 > h2{display: none;}
+
+#positnote{font-size: .75em;padding-top:50px;}
+
+#mermaid-1  *{
+font-family: "Atkinson Hyperlegible" !important;
+text-align: center !important;
+}
+
+#mermaid-1 {
+max-width: 100%
+}
+
+:root {
+  --mermaid-edge-color: #d3d3d3 !important;
+  --mermaid-font-family: "Atkinson Hyperlegible" !important;
+}
+
+figcaption{text-align:center;}
+```
+
+::: notes
+Thanks everyone for coming out! I'm super excited to tell you about positconf. This was the first data science conference I've attended as a faculty member and it's something I'd wanted to do for a long time.
+:::
+
+## Preface {.smaller}
+
+> I want us to agree that this is a welcoming and inclusive environment, and though I'm the person in front of the room, we're all going to learn a little something from each other. And let's agree that we're gonna share at least one thing we learned today with someone else. Can we agree?
+>
+> -- *Dr. Kari Jordan, Executive Director at The Carpentries*
+>
+> From the talk "Black Hair & Data Science Have More In Common Than You Think"
+
+## Trivia: Film History vs. Statistical Software History {.smaller .incremental .hideh2 auto-animate="true" auto-animate-easing="fade-in-then-out" background-color="#f1f3f5"}
+
+```{r}
+library(countdown)
+countdown(minutes=0, seconds=15)
+```
+
+::: {style="font-size: 1.75em;"}
+**Trivia Question**: The statistical software R was released in the same year as which blockbuster movie?
+:::
+
+::: {style="font-size: 1em;"}
+***Nerd point:*** Name which famous statistical software released in each of these years.
+:::
+
+::: {.fragment .fade-out fragment-index="5"}
+::: {layout="[ 25, 25, 25, 25]" layout-valign="top" layout-align="center" style="text-align: center;"}
+::: {#ncol1 .fragment style="text-align: center;" fragment-index="1"}
+![](Pics/movies/2001_A_Space_Odyssey_(1968).png){width="150px"}
+
+2001: A Space Odyssey (1968)
+:::
+
+::: {#ncol2 .fragment style="text-align: center;" fragment-index="2"}
+![](Pics/movies/godfather_poster_source-etsy_resize.png){width="150px"}
+
+The Godfather (1972)
+:::
+
+::: {#ncol3 .fragment style="text-align: center;" fragment-index="3"}
+![](Pics/movies/backtothefuture_source-etsy_resize.png){width="150px"}
+
+Back to the Future (1985)
+:::
+
+::: {#ncol4 .fragment style="text-align: center;" fragment-index="4"}
+![](Pics/movies/Jurassic-Park-Vintage-Movie-Poster-Original-1-Sheet-27x41-75_resize.png){width="150px"}
+
+Jurassic Park (1993)
+:::
+:::
+:::
+
+::: {.fragment .fade-in .absolute fragment-index="5" style="text-align: center;" bottom="0%" left="35%"}
+![](Pics/movies/Jurassic-Park-Vintage-Movie-Poster-Original-1-Sheet-27x41-75_resize.png){width="250px"}
+
+Jurassic Park (1993)
+:::
+
+# No powerpoint? No problem
+
+These slides were made entirely using R, RStudio, and Quarto :D (more on that later)
+
+# About posit::conf {.nostretch .hideh1}
+
+## What is Posit? {.nostretch .hideh2 .center}
+
+![](Pics/rstudio_posit_rebrand.png){fig-align="center" width="600px" fig-valign="center"}
+
+If you don't use R yourself, you may not be familiar with Posit. <br/><br/>
+
+::: fragment
+However, you may be familiar with one of Posit's biggest products: RStudio.
+:::
+
+::: {style="font-size: 0.75em;"}
+<br/><br/>
+_Image source: [Appsilon](https://appsilon.com/why-posit-means-growth-for-r/)_
+:::
+
+::: notes
+I mentioned that this conference was mainly for R and Python users, but the name of the conference doesn't exactly make the relationship between Posit and R or Python clear. If you're not actively using R you may not have heard of them before. But if you know someone who uses R, there's a very good chance they use at least one of the tools or packages that Posit develops.
+:::
+
+::: footer
+About posit::conf
+:::
+
+## R vs RStudio vs Posit {.hideh2 .center}
+
+::: {layout-ncol="3" layout-valign="center" layout-align="center"}
+::: {.fragment fragment-index="1"}
+![**Posit, PBC** <br/>*(formerly RStudio Inc.)*:<br/>Company behind RStudio and many contributions to the tidyverse](Pics/posit_logo.png){width="175px" fig-align="center"}
+:::
+
+::: {layout-nrow="2"}
+::: {.fragment fragment-index="2"}
+![**RStudio:**<br/> Program for writing R code](Pics/RStudio_hexagon.png){width="175px" style="margin-top: 0px; padding-top: 0px;"}
+:::
+
+::: {.fragment fragment-index="3"}
+![**tidyverse:**<br/> A collection of R packages for data science](Pics/tidyverse_hexagon.png){width="175px"}
+:::
+:::
+
+::: {.fragment fragment-index="4"}
+![**R:**<br/> Statistical programming language](Pics/Rlogo.png){width="175px" fig-align="center"}
+:::
+:::
+
+## Open source data science and libraries: Shared goals?
+
+> "Our mission is to create open-source software for data science, scientific research, and technical communication. We do this to **enhance the production and consumption of knowledge by everyone, regardless of economic means.** ... We invest heavily in open-source development, education, and the community with the goal of serving knowledge creators 100 years from now."
+>
+> -- [Posit mission statement](https://posit.co/about/)
+
+# Outline for this talk
+
+1.  posit's approach to creating community and inclusion (as a first-time conference attendee)
+2.  Effective teaching and presentation strategies used at the conference
+3.  Showing off the ease and awesomeness of creating instructional materials using Quarto 💪
+4.  Some highlights from the conference talks
+
+::: notes
+I did not meet any librarians while I was there, and as far as I know none of the talk presenters were librarians.
+:::
+
+::: notes
+I discovered while researching others' reactions to the conference that Posit paid for speakers to get coaching from [Articulation Inc.](https://www.articulationinc.com)
+:::
+
+## About posit::conf(2023)
+
+::: columns
+::: {.column width="65%"}
+
+What
+
+:   ::: fragment
+    2 days workshops + 2 days conference
+    :::
+
+When
+
+:   ::: fragment
+    Sep 17-20
+    :::
+
+Where
+
+:   ::: fragment
+    Chicago, IL (and virtual)
+    :::
+
+How
+
+:   ::: fragment
+    Winebrenner NPDEA Award funding
+    :::
+:::
+
+::: {.column width="35%"}
+```{mermaid}
+%%| fig-width: 10
+%%| fig-responsive: false
+
+flowchart TB
+  W1["Day 1 (Sunday 9/17)
+  Workshop: Intro to tidymodels"]:::nodelook1-->W2["Day 2 (Monday 9/18)
+  Workshop: Teaching data science masterclass"]:::nodelook1-->C1["Day 3 (Tuesday 9/19)
+    Conference Keynotes & talks"]:::nodelook2-->C2["Day 4 (Wednesday 9/20)
+    Conference Keynotes & talks"]:::nodelook2
+  classDef nodelook1 fill: #A4C8E9
+  classDef nodelook2 fill: #e9a4c8
+  classDef nodelook3 fill: #C6DFE0, font-size:4em
+  linkStyle 0,1 stroke-width: 4px
+
+```
+:::
+:::
+
+::: footer
+About posit::conf(2023)
+:::
+
+::: notes
+I was able to go to the conference thanks to the Winebrenner award. This was the first time I'd applied for an award, and I'd highly recommend any FTNTTs considering applying for the award to do so. One thing that made me more comfortable with the idea of applying is knowing that the committee's attitude is that they *want* to give out award funding; they're not approaching applications with the assumption that it's a no until proven a yes.
+:::
+
+# 1. Creating community and inclusion {visibility="hidden"}
+
+## Inclusive practices at the conference {.incremental}
+
+::: {layout="[1,1]" layout-valign="top" fig-cap-location="bottom"}
+![Badges have name and preferred pronouns; Red lanyard = Do not photograph](Pics/L_positconf2023_badge_lanyard_pin.jpg){.fragment width="400"}
+
+![Pins to indicate preferred physical contact](Pics/L_positconf_respect-space-sign-2023-09-17.jpg){.fragment width="500"}
+:::
+
+::: notes
+Since this was my first conference, some of what I thought was unique to positconf is standard practice at other conferences. They gave us buttons to indicate preference with physical contact. Lanyard colors to indicate do/do not photograph. Badges with name, pronouns. Information about gender-neutral bathrooms, lactation rooms, meditation rooms repeated at the start of each day of the workshops and conference.
+
+-   Name and preferred pronouns on badges
+
+-   Red lanyards = do not photograph
+
+-   "Pac man stance" = leave room in conversation circles for someone to join
+
+-   Optional buttons to indicate physical contact preferences
+
+-   Gender neutral bathrooms, lactation rooms, meditation/prayer rooms
+
+-   Thirty minute breaks every 90 minutes + 90 minute lunch break
+
+-   [Conference Code of Conduct](https://posit.co/code-of-conduct/)
+:::
+
+::: footer
+Creating community and inclusion
+:::
+
+## Inclusive practices at the conference: communication {.incremental .smaller}
+
+::: {layout-ncol="3" layout-valign="top"}
+![Private, moderated Discord server for conference for meet-ups, questions, notifications](Pics/discord-2_blur.png){.fragment width="190"}
+
+![PositConf2023 app to view conference schedule and stream sessions](Pics/positconf_app_schedule_19-tue.png){.fragment width="190"}
+
+![In-person attendees could stream sessions and immediately access recordings through the conference app](Pics/positconf_app_session-recording-access.png){.fragment width="190"}
+:::
+
+::: footer
+Creating community and inclusion
+:::
+
+# 2. Effective instruction methods
+
+-   Slides and/or websites created using Quarto and published freely online, no login required
+-   Materials available before workshop in Github repo
+-   Ensuring all students can complete assignments even if they do not have an expensive computer: [Posit Cloud](https://posit.cloud/)
+
+## Workshop 1: Intro to tidymodels {.smaller}
+
+*Instructors: Simon Couch, Hannah Frick, Emil Hvitfeldt*
+
+-   [Workshop website (archived version)](https://workshops.tidymodels.org/archive/2023-09-posit-conf/)
+    -   [Slides 01: Introduction](https://workshops.tidymodels.org/archive/2023-09-posit-conf/intro-01-introduction.html#/title-slide)
+    -   [Slides 02: Your data budget](https://workshops.tidymodels.org/archive/2023-09-posit-conf/intro-02-data-budget.html#/title-slide)
+    -   [Slides 03: What makes a model?](https://workshops.tidymodels.org/archive/2023-09-posit-conf/intro-03-what-makes-a-model.html#/title-slide)
+    -   [Slides 04: Evaluating models](https://workshops.tidymodels.org/archive/2023-09-posit-conf/intro-04-evaluating-models.html#/title-slide)
+    -   [Slides 05: Tuning models](https://workshops.tidymodels.org/archive/2023-09-posit-conf/intro-05-tuning-models.html#/title-slide)
+    -   [Slides 06: Wrapping up](https://workshops.tidymodels.org/archive/2023-09-posit-conf/intro-06-wrapping-up.html#/title-slide)
+-   [Github repo with classwork files](https://github.com/tidymodels/workshops/tree/main/classwork)
+
+See also:
+
+-   [Get started with tidymodels](https://www.tidymodels.org/start/)
+-   [Tidy Modeling with R](https://www.tmwr.org/)
+
+## Workshop 2: Teaching Data Science Masterclass {.center .smaller}
+
+*Instructor: Mine Çetinkaya-Rundel*
+
+-   [Workshop site](https://posit-conf-2023.github.io/teach-ds-masterclass/)
+    -   [Slides 01: Teaching data science with the tidyverse and Quarto](https://posit-conf-2023.github.io/teach-ds-masterclass/materials/tidyverse-quarto/#/title-slide)
+        -   [Ex 1.1 UN Votes](https://posit-conf-2023.github.io/teach-ds-masterclass/materials/tidyverse-quarto/unvotes.html)
+        -   [Ex 1.2 Fisheries of the world](https://posit-conf-2023.github.io/teach-ds-masterclass/materials/tidyverse-quarto/fisheries.html)
+    -   [Slides 02: Teaching data science with Git and GitHub](https://posit-conf-2023.github.io/teach-ds-masterclass/materials/git-github/#/title-slide)
+        -   [Ex 2.1 Homework 1 - Data Visualization](https://posit-conf-2023.github.io/teach-ds-masterclass/materials/git-github/hw-1.html) / [Starter](https://posit-conf-2023.github.io/teach-ds-masterclass/materials/git-github/hw-1-starter.html)
+        -   [Ex 2.2 - Lab 1 Trip to the midwest](https://posit-conf-2023.github.io/teach-ds-masterclass/materials/git-github/lab-1.html) / [Starter](https://posit-conf-2023.github.io/teach-ds-masterclass/materials/git-github/lab-1-starter.html)
+    -   [Slides 03: Computing infrastructure for teaching data science](https://posit-conf-2023.github.io/teach-ds-masterclass/materials/computing-infrastructure/#/title-slide)
+    -   [Slides 04: Organizing, publishing, and sharing of course materials](https://posit-conf-2023.github.io/teach-ds-masterclass/materials/course-materials/#/title-slide)
+
+See also: [Teaching the tidyverse in 2023](https://www.tidyverse.org/blog/2023/08/teach-tidyverse-23/)
+
+# 3. What is Quarto and why it's amazing
+
+## What is Quarto?
+
+-   [Quarto](https://quarto.org/) is a next-gen tool for authoring documents and publications that incorporate narrative, code, and output (succeeds [Rmarkdown](https://rmarkdown.rstudio.com/))
+-   Capable of producing "traditional" scholarly publications and presentations as well as "less-traditional" formats, like websites and blogs
+-   Output to HTML, PDF, or Word in most cases
+-   Can render not just R code, but other languages used for data science -- like Python, Julia, SQL, and more -- *all in the same document*
+-   See also: [Jupyter notebooks](https://jupyter.org/)
+
+## Quarto was *everywhere* at positconf
+
+-   Quarto was unveiled at last year's conference, so this was its "first birthday" (of sorts)
+-   Lots of new features being added + lots of success stories from teams who successfully adopted it to improve shared documentation and onboarding
+-   Virtually all of the presenters created their slides using Quarto and most shared the \*.qmd contents publically
+
+# You should try Quarto! (Seriously!)
+
+You don't have to write any R or Python code to create beautiful documents using Quarto! In most situations, you can use Quarto as a substitute for Microsoft Word or PowerPoint. Including writing manuscripts for publication (it works with Zotero!)
+
+# 3. Let's show off some things Quarto can do that would be impossible (or at least annoying) to do in MS Word
+
+## Quarto makes it easy to do web accessibility right the first time, without extra effort
+
+For example, it's extremely easy to tell if an image lacks alt text and/or a text caption:
+
+```         
+![This is a figure caption](Pics/an-image.png){fig-alt="And this is alt text!"}
+
+![](Pics/an-image.png){}
+```
+
+::: footer
+Things Quarto can do
+:::
+
+## Simple and straightforward to add publication metadata
+
+Quarto documents use *YAML front matter* to declare metadata at the top of each file. Here's an excerpt of what the YAML looks like for this document:
+
+```         
+---
+title: "posit::conf(2023): <br> A posit::ively good time"
+subtitle: "An FPDC Brown Bag Presentation"
+date: 10/19/2023
+author: 
+  - name: "Kristin Yeager"
+    affiliation: Kent State University Libraries
+    affiliation-url: https://library.kent.edu
+    orcid: 0000-0002-4747-1745
+format: 
+  revealjs:
+    theme:
+      - default
+      - custom.scss
+---
+```
+
+##  {.smaller}
+
+### Some metadata you might be interested in setting
+
+::: incremental
+-   Copyright
+-   License
+-   For each author:
+    -   Name
+    -   Contact info
+    -   Institutional affiliation(s)
+    -   ORCID
+        -   This presentation has my ORCID attached 👍
+:::
+
+::: {.fragment .smaller}
+See also: [Quarto Reference \> Formats \> HTML Options](https://quarto.org/docs/reference/formats/html.html)
+:::
+
+::: footer
+Things Quarto can do
+:::
+
+## Show graphs and the code that generated them side-by-side {.center .smaller}
+
+```{css, echo=FALSE}
+.reveal code {
+  max-height: 100% !important;
+}
+```
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+#| fig-width: 5
+#| fig-height: 5
+#| fig-align: center
+#| layout-valign: top
+#| output-location: column
+#| fig-cap: ggplot2 Map showing location of Chicago
+#| code-overflow: wrap
+#| code-line-numbers: true
+#| layout: [[53,47]]
+
+library(maps)
+library(dplyr)
+library(ggplot2)
+
+chi_y <- 41.8332617
+chi_x <- -88.0616142
+
+df <- map_data("state") %>%
+  select(lon = long, lat, group, id = region) %>%
+  mutate(isIllinois=if_else(id=="illinois", 
+                            "A", "B"))
+
+ggplot(df, aes(lon, lat, group = group)) + 
+  coord_sf(clip="on", expand=TRUE, xlim=c(-92, -82), 
+           ylim=c(37, 45.5)) + 
+  geom_polygon(aes(fill = isIllinois), 
+               colour = "grey65") + 
+  scale_fill_manual(values=c("#79a197", "grey80")) +
+  annotate(geom="point", y=chi_y, x=chi_x, 
+           color="#222e2b", size=5) +
+    annotate(geom="label", label="Chicago, IL", 
+           y=chi_y+0.4, x=chi_x, 
+           color="#222e2b", size=5) +
+  theme_void() +
+  #theme_minimal() #+ 
+  theme(legend.position="none",
+        panel.background =
+          element_rect(fill="lightblue"),
+        plot.margin=margin(0, 0, 0, 0, unit="pt"))
+  
+```
+
+::: footer
+Things Quarto can do
+:::
+
+## Write equations using LaTeX markup
+
+Recall the formula for a simple linear regression model:
+
+$$
+y = \beta_0 + \beta_1x + \epsilon
+$$ {#eq-lm}
+
+where $\beta_0$ is the intercept and $\beta_1$ is the slope parameter. Suppose we want to estimate the relationship between college students' typical amount of sleep and how much they study, i.e.
+
+$$
+\mathrm{SleepTime} = \hat{\beta}_0 + \hat{\beta}_1\mathrm{StudyTime} + e
+$$ {#eq-lm2}
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| code-overflow: wrap
+#| code-line-numbers: true
+#| cache: true
+
+#' Import SPSS Tutorials sample data
+mydata <- haven::read_spss("Sample_Dataset_2019.sav")
+```
+
+::: footer
+Things Quarto can do
+:::
+
+## Easily reference equations, tables, figures
+
+In R, we can estimate the parameters of @eq-lm2 using the function `lm()`:
+
+```{r}
+#| echo: false
+knitr::opts_chunk$set(decimals=2)
+options(digits=2)
+```
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+#| code-overflow: wrap
+#| code-line-numbers: true
+#| cache: true
+
+#' Linear regression (uses base R)
+fit_lm <- lm(SleepTime ~ StudyTime, 
+             data=mydata)
+```
+
+::: columns
+::: {.column width="65%"}
+::: {.fragment style="font-size: .5em;"}
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| label: tbl-lm
+#| tbl-cap: Linear Regression Results
+sjPlot::tab_model(fit_lm, 
+                  show.ci=FALSE, 
+                  show.se=TRUE, 
+                  show.obs=FALSE)
+```
+:::
+:::
+
+::: {.fragment .column width="35%"}
+We see from @tbl-lm that the estimated slope parameter is **`r coef(fit_lm)[[2]]`**.
+:::
+:::
+
+::: footer
+Things Quarto can do
+:::
+
+## Embed a YouTube video
+
+For his lightning talk, presenter Winston Chang used AI to generate a rap battle between R (represented by Snoop Dogg) and Python (represented by Biggie Smalls).
+
+<iframe data-external="1" src="https://www.youtube.com/embed/l4XgOQFCbl4?si=piSO18qMRj_Shqu_&amp;start=41" width="560" height="315" title="R vs. Python Rap Battle">
+
+</iframe>
+
+::: footer
+Things Quarto can do
+:::
+
+# Wrapping up
+
+# Try R & Quarto {.center .smaller}
+
+**Get started** - [Install R](https://cran.r-project.org/) - [Install RStudio](https://posit.co/download/rstudio-desktop/) - [Install the tidyverse packages](https://www.tidyverse.org/)
+
+**Reads** - [tidyverse Cheatsheets](https://posit.co/resources/cheatsheets/) - [R for Data Science](https://r4ds.hadley.nz/) - [ggplot2: Elegant Graphics for Data Analysis](https://ggplot2-book.org/)
+
+**Start participating!** - [R4DS Community](https://rfordatasci.com/) - [TidyTuesday Repo](https://github.com/rfordatascience/tidytuesday)
+
+# Get involved: Organizations for Change
+
+From Kari Jordan's presentation:
+
+-   [Data for Black Lives](https://d4bl.org/)
+-   [Algorithmic Justice League (AJL)](https://www.ajl.org/)
+-   [The Carpentries](https://carpentries.org/index.html)
+
+# What's next for me?
+
+-   Thinking of ideas for a talk proposal for the posit::conf 2024 or 2025
+-   Looking into [The Carpentries Instructor training](https://carpentries.org/become-instructor/)
+
+## Conclusion {.center .smaller}
+
+### What I think posit::conf emphasized
+
+::: incremental
+-   Emphasis on community
+-   Emphasis on tools that make it *easy to succeed*
+-   Emphasis on packages as a way of sharing and communicating code in a reproducible, reusable manner
+-   Data science is for everyone
+:::
+
+### What I took from my favorite talks
+
+::: incremental
+-   Learning challenging material is easier when you incorporate something you like
+-   Learning challenging material is easier when you develop relationships with other learners and share knowledge
+-   Get involved and share what you know (you don't have to wait until you feel like an expert)
+:::
+
+# Appendix
+
+## Links {.smaller}
+
+[Listing of all conference keynote and talk abstracts](https://reg.conf.posit.co/flow/posit/positconf23/reg/login) (Recordings require login)
+
+[List of all posit::conf(2023) workshop topics](https://posit-conf-2023.github.io/workshops/)
+
+[MousePose for Mac](https://boinx.com/mousepose/)
+
+[Github Copilot](https://github.com/features/copilot)
+
+[Update on Quarto for Academics](https://quarto.org/docs/blog/posts/2023-05-22-quarto-for-academics)
+
+Meghan Santiago-Harris\'s [Intro to rtistry tutorial](https://thetidytrekker.com/talks/intro_to_rtistry/intro_to_rtistry)
+
+[RStudio hex sticker images](https://github.com/rstudio/hex-stickers/tree/main)

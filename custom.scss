@@ -1,0 +1,22 @@
+/*-- scss:defaults --*/
+
+
+// fonts
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital@0;1&display=swap');
+
+$font-family-sans-serif: "Atkinson Hyperlegible", sans-serif;
+$mermaid-font-family: "Atkinson Hyperlegible";
+
+$presentation-font-size-root: 36px;
+$presentation-title-slide-text-align: "left";
+
+$body-bg: #f1f3f5;
+$body-color: #2c2727 !default;
+$link-color: #39729E;
+$footer-fg: #565252;
+
+/*-- scss:rules --*/
+
+.reveal blockquote{
+  color: inherit;
+}
